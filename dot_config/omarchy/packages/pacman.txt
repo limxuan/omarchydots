@@ -1,0 +1,14 @@
+bitwarden
+keyd
+fish
+stow
+kitty
+telegram-desktop
+rsync
+dropbox
+zoxide
+eza
+fzf
+ripgrep
+btop
+lazygit

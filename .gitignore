@@ -1,6 +1,14 @@
-applications/.local/share/applications/mimeinfo.cache
+# Generated files
+*.swp
+*.bak
+*.bak-*
 
-fish/.config/fish/conf.d/fish_frozen_*.fish
-fish/.config/fish/fish_variables
+# Runtime state
+dot_config/fish/fish_variables
+dot_config/fish/conf.d/fish_frozen_*.fish
 
-nvim/.config/nvim/lazy-lock.json
+# Lock files
+dot_config/nvim/lazy-lock.json
+
+# Desktop entry cache
+applications/

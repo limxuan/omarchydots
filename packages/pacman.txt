@@ -1,7 +1,0 @@
-bitwarden
-keyd
-fish
-stow
-telegram-desktop
-rsync
-dropbox
