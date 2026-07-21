@@ -28,6 +28,12 @@ sudo systemctl enable --now keyd.service
 echo "[+] Applying chezmoi configs..."
 chezmoi apply --force
 
+# --- Inject hyprland configs (defaults + your deltas) -----------------------
+echo "[+] Injecting hyprland configs..."
+mkdir -p "$HOME/.config/hypr/deltas"
+cp "$HOME/.local/share/chezmoi/dot_config/hypr/deltas/"* "$HOME/.config/hypr/deltas/" 2>/dev/null || true
+python3 "$HOME/.local/share/chezmoi/dot_config/hypr/inject.py"
+
 # --- Setup desktop entries ---------------------------------------------------
 echo "[+] Setting up desktop entries..."
 bash "$HOME/.local/share/chezmoi/run_onchange_setup-desktop-entries.sh"
