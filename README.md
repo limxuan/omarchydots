@@ -1,55 +1,47 @@
-# Setups
-## 1. Setup Bitwarden SSH Agent
-### Bitwarden Settings
-- Show Tray Icon
-- Close to Tray
-- Start automatically on login
+# lx dotfiles (Clean Native Version)
 
-#### SSH Setup
-- Enable SSH Agent in Settings > SSH Agent
-- Ask authorisation > Remember until vault is locked
-## 2. Launch 🚀
-```
-sudo pacman -Syyu
-git clone git@github.com:limxuan/dotfiles-omarchy.git
-cd dotfiles-omarchy
-chmod 777 bootstrap.sh
-sudo ./bootstrap.sh
-```
+Arch Linux + Hyprland dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
-## Scripts
+## Highlights of this repo (`~/chez-2`)
 
-### `install-packages.sh`
-Install or update packages from `packages/pacman.txt` (official repos) and `packages/aur.txt` (AUR via yay). Also regenerates desktop entries.
+- **Native Hyprland `source =` Includes**: Uses standard Hyprland `source =` directives instead of complex `inject.py` python merge scripts.
+- **Solid Black Wallpaper**: Managed automatically via `run_onchange_set-black-wallpaper.sh`.
+- **Zero Middleman Build Steps**: `chezmoi apply` immediately updates active config files.
+
+## How to use this repository with chezmoi
+
+### 1. Preview changes (Dry run)
 ```bash
-./install-packages.sh
+chezmoi diff --source ~/chez-2
 ```
 
-### `setup-desktop-entries.sh`
-Generate `.desktop` files from declarative definitions in `packages/apps.sh`. Edit `packages/apps.sh` to add/remove web apps, TUI apps, or omarchy shortcuts, then run:
+### 2. Apply configuration
 ```bash
-./setup-desktop-entries.sh
+chezmoi apply --source ~/chez-2
 ```
 
-## Omarchy
-- Disable screensaver: Omarchy Menu > Trigger > Toggle > Screensaver
-
-## Alacritty
-- Install > Terminal > Alacritty
-
-## Chromium
-### Extensions
-- [Bitwarden](https://chromewebstore.google.com/detail/bitwarden-password-manage/nngceckbapebfimnlniiiahkandclblb?hl=en)
-- [Close Other Tabs+](https://chromewebstore.google.com/detail/close-other-tabs+/higiahnfphokonkjalljdfgjhafdjbil?hl=en)
-- [Dark Reader](https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en) → Toggle current site `alt+d`
-- [uBlock Origin Lite](https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh?hl=en)
-- [Vimium C](https://chromewebstore.google.com/detail/vimium-c-all-by-keyboard/hfjbmagddngcpeloejdejnfgbamkjaeg?hl=en)
-- [SponsorBlock](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone?hl=en)
-
-## Limine Setup
-#### For dualbooting
-- To prevent limine from having a timeout edit `/boot/limine.conf`
+### 3. Switch your primary chezmoi directory to `~/chez-2` (Optional)
+If you want chezmoi to default to this repository instead of `~/.local/share/chezmoi`:
+```bash
+rm -rf ~/.local/share/chezmoi
+cp -r ~/chez-2 ~/.local/share/chezmoi
 ```
-timeout: 0
-default_entry: none
+
+## Structure
+
+```
+~/chez-2/
+├── dot_config/hypr/
+│   ├── hyprland.conf          # Main Hyprland config (sources Omarchy defaults + your custom files)
+│   ├── custom_envs.conf       # Environment overrides
+│   ├── custom_looknfeel.conf  # Layout & visual overrides
+│   ├── custom_autostart.conf  # Autostart overrides
+│   ├── bindings.conf          # Custom keybindings
+│   ├── monitors.conf          # Monitor configuration
+│   └── windowrules.conf       # Window rules
+├── dot_config/waybar/         # Waybar config + styles
+├── dot_config/scripts/        # Helper scripts
+├── dot_config/omarchy/        # Omarchy package lists
+├── run_once_bootstrap.sh      # Master installer
+└── run_onchange_set-black-wallpaper.sh # Black wallpaper generator & symlink manager
 ```

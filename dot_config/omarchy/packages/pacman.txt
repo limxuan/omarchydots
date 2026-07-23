@@ -12,3 +12,5 @@ fzf
 ripgrep
 btop
 lazygit
+jq
+gnome-boxes

@@ -20,7 +20,7 @@ set fish_greeting
 set -g -x NODE_ENV "development"
 set -gx EDITOR nvim
 set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx SSH_AUTH_SOCK "$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+set -gx SSH_AUTH_SOCK "$HOME/.bitwarden-ssh-agent.sock"
 set -Ux JAVA_HOME /usr/lib/jvm/java-25-openjdk
 
 # Custom Key Bindings

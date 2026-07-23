@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Always run from repo root
-cd "$(dirname "$(realpath "$0")")"
+# Always run from chezmoi source root
+cd "$HOME/.local/share/chezmoi"
 
 DESKTOP_DIR="$HOME/.local/share/applications"
 ICON_DIR="$DESKTOP_DIR/icons"
@@ -10,7 +10,7 @@ mkdir -p "$ICON_DIR"
 
 # Declare defaults so set -u is happy if an array is missing from apps.sh
 declare -a webapps=() tui_apps=() omarchy_shortcuts=() custom_entries=()
-source packages/apps.sh
+source dot_config/omarchy/packages/apps.sh
 
 # =============================================================================
 # 1. Web Apps

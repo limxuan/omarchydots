@@ -1,4 +1,5 @@
 sesh-bin
 snipaste
 ticktick
-bruno-git
+helium-browser-bin
+burpsuite

@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
-cd "$(dirname "$(realpath "$0")")"
+CHEZMOI_SRC="$HOME/.local/share/chezmoi"
+PACKAGES_DIR="${CHEZMOI_SRC}/dot_config/omarchy/packages"
 
 echo "[+] Installing packages..."
 
-[[ -f packages/pacman.txt ]] || { echo "[!] Missing packages/pacman.txt"; exit 1; }
-[[ -f packages/aur.txt ]]    || { echo "[!] Missing packages/aur.txt"; exit 1; }
+[[ -f "${PACKAGES_DIR}/pacman.txt" ]] || { echo "[!] Missing packages/pacman.txt"; exit 1; }
+[[ -f "${PACKAGES_DIR}/aur.txt" ]]    || { echo "[!] Missing packages/aur.txt"; exit 1; }
 
 echo "[+] Installing pacman packages..."
-sudo pacman -S --needed --noconfirm - < packages/pacman.txt
+sudo pacman -S --needed --noconfirm - < "${PACKAGES_DIR}/pacman.txt"
 
 if ! command -v yay &>/dev/null; then
   echo "[+] Installing yay..."
@@ -20,9 +21,9 @@ if ! command -v yay &>/dev/null; then
 fi
 
 echo "[+] Installing AUR packages with yay..."
-yay -S --needed --noconfirm - < packages/aur.txt
+yay -S --needed --noconfirm - < "${PACKAGES_DIR}/aur.txt"
 
 echo "[+] Setting up desktop entries..."
-./setup-desktop-entries.sh
+bash "${CHEZMOI_SRC}/run_onchange_setup-desktop-entries.sh"
 
 echo "[+] All packages installed."
