@@ -1,47 +1,67 @@
-# lx dotfiles (Clean Native Version)
+# Omarchy Dotfiles
 
 Arch Linux + Hyprland dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
-## Highlights of this repo (`~/chez-2`)
+## Quick Start (Fresh System)
 
-- **Native Hyprland `source =` Includes**: Uses standard Hyprland `source =` directives instead of complex `inject.py` python merge scripts.
-- **Solid Black Wallpaper**: Managed automatically via `run_onchange_set-black-wallpaper.sh`.
-- **Zero Middleman Build Steps**: `chezmoi apply` immediately updates active config files.
-
-## How to use this repository with chezmoi
-
-### 1. Preview changes (Dry run)
 ```bash
-chezmoi diff --source ~/chez-2
+bash <(curl -fsSL raw.githubusercontent.com/limxuan/omarchydots/master/bootstrap.sh)
 ```
 
-### 2. Apply configuration
+Or clone manually:
 ```bash
-chezmoi apply --source ~/chez-2
+git clone git@github.com:limxuan/omarchydots.git ~/.local/share/chezmoi
+bash ~/.local/share/chezmoi/bootstrap.sh
 ```
 
-### 3. Switch your primary chezmoi directory to `~/chez-2` (Optional)
-If you want chezmoi to default to this repository instead of `~/.local/share/chezmoi`:
+## What's Included
+
+- **Hyprland** config with custom keybindings, workspace rules, monitor rotation
+- **Waybar** with tailscale indicator, fullscreen indicator, battery power profile
+- **Keyd** config: capslock → meh+esc, rightalt passthrough, shift oneshot
+- **Helium browser** with extensions: SponsorBlock, Vimium C, Dark Reader, FoxyProxy, Bitwarden, Keyboard Shortcuts to Manage Tabs
+- **Voice dictation** via Groq Cloud (whisper-large-v3) — press `Caps + E`
+- **Tailscale** indicator in waybar (green `[ts]` when connected)
+- **Black wallpaper** via swaybg
+- **Fish shell** with zoxide, eza, fzf, ripgrep
+
+## Updating
+
 ```bash
-rm -rf ~/.local/share/chezmoi
-cp -r ~/chez-2 ~/.local/share/chezmoi
+cd ~/.local/share/chezmoi
+git pull
+chezmoi apply --force
 ```
+
+## Key Bindings
+
+| Binding | Action |
+|---------|--------|
+| `Caps + Return` | Terminal |
+| `Caps + Space` | Toggle layout (scrolling/dwindle) |
+| `Caps + E` | Toggle voice dictation |
+| `Caps + R` | Toggle scratchpad |
+| `Caps + X` | Switch to workspace 6 |
+| `Caps + 1-9` | Switch to workspace 1-9 |
+| `Caps + Shift + 1-9` | Move window to workspace 1-9 |
+| `Super + Space` | Toggle layout |
 
 ## Structure
 
 ```
-~/chez-2/
-├── dot_config/hypr/
-│   ├── hyprland.conf          # Main Hyprland config (sources Omarchy defaults + your custom files)
-│   ├── custom_envs.conf       # Environment overrides
-│   ├── custom_looknfeel.conf  # Layout & visual overrides
-│   ├── custom_autostart.conf  # Autostart overrides
-│   ├── bindings.conf          # Custom keybindings
-│   ├── monitors.conf          # Monitor configuration
-│   └── windowrules.conf       # Window rules
-├── dot_config/waybar/         # Waybar config + styles
-├── dot_config/scripts/        # Helper scripts
-├── dot_config/omarchy/        # Omarchy package lists
-├── run_once_bootstrap.sh      # Master installer
-└── run_onchange_set-black-wallpaper.sh # Black wallpaper generator & symlink manager
+~/.local/share/chezmoi/
+├── bootstrap.sh                 # Fresh system installer
+├── run_once_bootstrap.sh        # Full setup (packages, keyd, extensions)
+├── run_onchange_install-packages.sh  # Package installer
+├── dot_config/
+│   ├── hypr/                    # Hyprland configs
+│   ├── waybar/                  # Waybar config + styles
+│   ├── scripts/                 # Helper scripts
+│   └── omarchy/packages/        # Package lists (pacman.txt, aur.txt)
+├── dot_etc/keyd/                # Keyd config
+└── docs/                        # Setup guides
 ```
+
+## Setup Guide
+
+See [docs/SERVICES_SETUP_GUIDE.md](docs/SERVICES_SETUP_GUIDE.md) for detailed instructions on voice dictation, idle lock, and other services.
