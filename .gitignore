@@ -12,3 +12,14 @@ dot_config/nvim/lazy-lock.json
 
 # Desktop entry cache
 applications/
+
+# Secrets and sensitive files
+*.pem
+*.key
+*.crt
+*.env
+*secret*
+*api_key*
+*token*
+*.p12
+*.pfx

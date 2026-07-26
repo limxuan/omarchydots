@@ -39,6 +39,7 @@ declare -A EXTENSIONS=(
     ["eimadpbcbfnmbkopoojfekhnkhdbieeh"]="Dark Reader"
     ["gcknhkkoolaabfmlnjonogaaifnjlfnp"]="FoxyProxy"
     ["nngceckbapebfimnlniiiahkandclblb"]="Bitwarden"
+    ["fipfgiejfpcdacpjepkohdlnjonchnal"]="Keyboard Shortcuts to Manage Tabs"
 )
 
 rm -rf "${HELIUM_CONFIG}/External Extensions"
@@ -103,7 +104,7 @@ cat > "$HOME/.local/bin/helium-browser" << 'WRAPPEREOF'
 # Helium Browser wrapper - loads unpacked extensions
 
 EXT_PATHS=()
-for ext_id in mnjggcdmjocbbbhaepdhchncahnbgone hfjbmagddngcpeloejdejnfgbamkjaeg eimadpbcbfnmbkopoojfekhnkhdbieeh gcknhkkoolaabfmlnjonogaaifnjlfnp nngceckbapebfimnlniiiahkandclblb; do
+for ext_id in mnjggcdmjocbbbhaepdhchncahnbgone hfjbmagddngcpeloejdejnfgbamkjaeg eimadpbcbfnmbkopoojfekhnkhdbieeh gcknhkkoolaabfmlnjonogaaifnjlfnp nngceckbapebfimnlniiiahkandclblb fipfgiejfpcdacpjepkohdlnjonchnal; do
     ext_path=$(find "$HOME/.config/net.imput.helium/unpacked-extensions/${ext_id}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -n 1)
     if [ -n "${ext_path}" ]; then
         EXT_PATHS+=("${ext_path}")
@@ -122,10 +123,10 @@ chmod +x "$HOME/.local/bin/helium-browser"
 # Override system desktop entry so the wrapper is used instead of /usr/bin/helium-browser
 mkdir -p "$HOME/.local/share/applications"
 cp /usr/share/applications/helium.desktop "$HOME/.local/share/applications/helium.desktop"
-sed -i 's|^Exec=helium-browser|Exec=/home/lx/.local/bin/helium-browser|g' "$HOME/.local/share/applications/helium.desktop"
+sed -i "s|^Exec=helium-browser|Exec=$HOME/.local/bin/helium-browser|g" "$HOME/.local/share/applications/helium.desktop"
 update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
 
-echo "    Extensions: SponsorBlock, Vimium C, Dark Reader, FoxyProxy, Bitwarden"
+echo "    Extensions: SponsorBlock, Vimium C, Dark Reader, FoxyProxy, Bitwarden, Keyboard Shortcuts to Manage Tabs"
 
 # --- Restart Waybar safely ---------------------------------------------------
 echo "[+] Restarting Waybar..."

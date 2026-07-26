@@ -11,10 +11,12 @@
   "modules-center": [
     "clock",
     "custom/update",
-    "custom/screenrecording-indicator"
+    "custom/screenrecording-indicator",
+    "custom/idle-indicator"
   ],
   "modules-right": [
     // "custom/trackpad-indicator",
+    "custom/tailscale",
     "custom/fullscreen",
     "group/tray-expander",
     "bluetooth",
@@ -68,6 +70,13 @@
     "interval": 1,
     "format": "󰊓",
     "on-click": "hyprctl dispatch fullscreen 1"
+  },
+  "custom/tailscale": {
+    "exec": "~/.config/scripts/tailscale-indicator.sh",
+    "return-type": "json",
+    "interval": 10,
+    "format": "{}",
+    "on-click": "xdg-terminal-exec tailscale status"
   },
   "custom/trackpad-indicator": {
     "exec": "~/.config/scripts/trackpad-indicator.sh",

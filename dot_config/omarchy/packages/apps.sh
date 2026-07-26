@@ -46,6 +46,6 @@ omarchy_shortcuts=(
 # =============================================================================
 custom_entries=(
   # "vm|vm-manager|/usr/bin/python3.13 /usr/bin/virt-manager||System;Virtualization;"
-  # "windows-vm|Windows|uwsm app -- omarchy-windows-vm launch|/home/limxuan/.local/share/applications/icons/windows.png|System;Virtualization;"
+  # "windows-vm|Windows|uwsm app -- omarchy-windows-vm launch|$HOME/.local/share/applications/icons/windows.png|System;Virtualization;"
   # "zen-browser|Zen Browser|/usr/local/bin/zen-browser %U|zen-browser|Network;WebBrowser;"
 )
