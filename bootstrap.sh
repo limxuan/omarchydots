@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_URL="git@github.com:limxuan/omarchydots.git"
+REPO_URL="https://github.com/limxuan/omarchydots.git"
 CHEZMOI_DIR="$HOME/.local/share/chezmoi"
 
 echo "╔══════════════════════════════════════╗"
