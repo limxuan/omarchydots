@@ -20,9 +20,9 @@ yay -S --needed --noconfirm - < "$HOME/.local/share/chezmoi/dot_config/omarchy/p
 
 # --- Setup keyd (system-level) ----------------------------------------------
 echo "[+] Setting up keyd..."
-sudo cp "$HOME/.local/share/chezmoi/dot_etc/keyd/default.conf" /etc/keyd/default.conf
 sudo cp "$HOME/.local/share/chezmoi/dot_etc/libinput/local-overrides.quirks" /etc/libinput/local-overrides.quirks
-sudo systemctl enable --now keyd.service
+bash "$HOME/.local/share/chezmoi/run_onchange_after_setup-keyd.sh.tmpl" || true
+
 
 # --- Setup desktop entries ---------------------------------------------------
 echo "[+] Setting up desktop entries..."

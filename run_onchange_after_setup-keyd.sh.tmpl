@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+# default.conf hash: {{ include "dot_etc/keyd/default.conf" | sha256sum }}
+
+echo "[+] Syncing keyd default.conf to /etc/keyd/default.conf..."
+sudo mkdir -p /etc/keyd
+sudo cp "$HOME/.local/share/chezmoi/dot_etc/keyd/default.conf" /etc/keyd/default.conf
+sudo systemctl enable --now keyd.service
+sudo systemctl restart keyd.service
