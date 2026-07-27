@@ -12,21 +12,27 @@ echo
 # --- Install base dependencies ---
 echo "[1/4] Installing base dependencies..."
 if command -v pacman &>/dev/null; then
-    sudo pacman -S --needed --noconfirm git chezmoi
+    sudo pacman -S --needed --noconfirm git chezmoi curl python
 elif command -v apt &>/dev/null; then
-    sudo apt update && sudo apt install -y git curl
-    # Install chezmoi via official script on Debian/Ubuntu
+    sudo apt update && sudo apt install -y git curl python3
     if ! command -v chezmoi &>/dev/null; then
-        sh -c "$(curl -fsLS get.chezmoi.io)"
+        sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+        export PATH="$HOME/.local/bin:$PATH"
     fi
 elif command -v dnf &>/dev/null; then
-    sudo dnf install -y git chezmoi
+    sudo dnf install -y git chezmoi curl python3
 else
-    echo "[!] Unknown package manager. Install git and chezmoi manually."
-    exit 1
+    if ! command -v git &>/dev/null; then
+        echo "[!] Git is required. Please install git and retry."
+        exit 1
+    fi
+    if ! command -v chezmoi &>/dev/null; then
+        sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+        export PATH="$HOME/.local/bin:$PATH"
+    fi
 fi
 
-echo "[2/4] Cloning dotfiles..."
+echo "[2/4] Initializing dotfiles via HTTPS..."
 if [ -d "$CHEZMOI_DIR/.git" ]; then
     echo "    chezmoi dir already exists, pulling latest..."
     git -C "$CHEZMOI_DIR" pull --ff-only || true
@@ -34,16 +40,12 @@ else
     chezmoi init --apply "$REPO_URL"
 fi
 
-echo "[3/4] Applying dotfiles..."
+echo "[3/4] Applying dotfiles & setup hooks..."
 chezmoi apply --force
 
 echo "[4/4] Done!"
-echo
-echo "┌──────────────────────────────────────┐"
-echo "│  Dotfiles applied successfully!      │"
-echo "│                                      │"
-echo "│  You may want to:                    │"
-echo "│  - Reboot for keyd changes           │"
-echo "│  - Set up Groq API key for dictation │"
-echo "│    (see docs/SERVICES_SETUP_GUIDE.md)│"
-echo "└──────────────────────────────────────┘"
+echo "┌────────────────────────────────────────────────────────────┐"
+echo "│  Dotfiles applied successfully!                            │"
+echo "│  Theme: tokyo-night                                        │"
+echo "│  Wallpaper: Solid Black                                    │"
+echo "└────────────────────────────────────────────────────────────┘"

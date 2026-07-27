@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# 1. Ensure Omarchy theme is initialized (prevents line 13 hyprland.conf missing file errors)
+if [[ ! -f "$HOME/.config/omarchy/current/theme/hyprland.conf" ]]; then
+    omarchy-theme-set tokyo-night
+fi
+
 BG_DIR="$HOME/.config/omarchy/current/theme/backgrounds"
 BG_LINK="$HOME/.config/omarchy/current/background"
 
 mkdir -p "$BG_DIR"
 
-# Generate 1x1 solid black PNG
+# 2. Generate 1x1 solid black PNG wallpaper
 python3 -c "
 import struct, zlib
 
@@ -32,4 +37,9 @@ find "$BG_DIR" -type f ! -name "black.png" -delete
 rm -f "$BG_LINK"
 ln -sf "$BG_DIR/black.png" "$BG_LINK"
 
-echo "[+] Black wallpaper set and other wallpapers removed from Omarchy theme."
+# Reload background if active
+if command -v omarchy-theme-bg-set &>/dev/null; then
+    omarchy-theme-bg-set "$BG_LINK" 2>/dev/null || true
+fi
+
+echo "[+] Theme verified (tokyo-night) and black wallpaper set by chezmoi."
