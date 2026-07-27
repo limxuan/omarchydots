@@ -27,7 +27,7 @@ else
 fi
 
 echo "[2/4] Cloning dotfiles..."
-if [ -d "$CHEZMOI_DIR" ]; then
+if [ -d "$CHEZMOI_DIR/.git" ]; then
     echo "    chezmoi dir already exists, pulling latest..."
     git -C "$CHEZMOI_DIR" pull --ff-only || true
 else
