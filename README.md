@@ -5,12 +5,12 @@ Arch Linux + Hyprland dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 ## Quick Start (Fresh System)
 
 ```bash
-bash <(curl -fsSL raw.githubusercontent.com/limxuan/omarchydots/master/bootstrap.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/limxuan/omarchydots/master/bootstrap.sh)
 ```
 
 Or clone manually:
 ```bash
-git clone git@github.com:limxuan/omarchydots.git ~/.local/share/chezmoi
+git clone https://github.com/limxuan/omarchydots.git ~/.local/share/chezmoi
 bash ~/.local/share/chezmoi/bootstrap.sh
 ```
 
